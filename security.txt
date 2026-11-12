@@ -1,0 +1,4 @@
+To raise security issues, see:
+https://github.com/NeilWJames/plugin-archive/blob/main/docs/SECURITY.md
+
+SBOM: not applicable

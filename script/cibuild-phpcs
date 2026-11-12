@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Lint the plugin and its tests with the plugin's ruleset (composer puts phpcs in bin/).
+
+set -e
+
+bin/phpcs --standard=phpcs.ruleset.xml -p -s --colors *.php includes/*.php tests/*.php

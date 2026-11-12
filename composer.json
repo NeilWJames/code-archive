@@ -1,0 +1,34 @@
+{
+    "name": "neilwjames/plugin-archive",
+    "description": "Keeps inactive WordPress plugins out of the plugins folder by archiving them as zip files.",
+    "license": "GPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Neil W. James",
+            "email": "neil@familyjames.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpcsstandards/phpcsutils": "^1.2",
+        "phpcsstandards/phpcsextra": "^1.5.1",
+        "wp-coding-standards/wpcs": "^3.4.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "yoast/phpunit-polyfills": "*",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpcompatibility/phpcompatibility-paragonie": "^1.3",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "phpunit/phpunit": "^9.6"
+    },
+    "scripts": {
+        "lint": "phpcs --standard=phpcs.ruleset.xml -p -s *.php includes/*.php tests/*.php",
+        "test": "phpunit --config=phpunit9.xml"
+    },
+    "config": {
+        "bin-dir": "bin",
+        "vendor-dir": "vendor",
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

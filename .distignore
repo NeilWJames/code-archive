@@ -1,0 +1,25 @@
+# Files and folders not shipped to WordPress.org.
+# Used by `wp dist-archive` and SVN deploy tools.
+
+/.git
+/.github
+/.distignore
+/.gitattributes
+/.gitignore
+/artifacts
+/assets
+/bin
+/docs
+/node_modules
+/script
+/tests
+/vendor
+
+*.bak
+composer.json
+composer.lock
+coverage.xml
+junit.xml
+phpcs.ruleset.xml
+phpunit9.xml
+README.md

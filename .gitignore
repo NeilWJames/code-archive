@@ -1,0 +1,11 @@
+.DS_Store
+*.bak
+bin
+composer.lock
+coverage.xml
+junit.xml
+node_modules/
+package-lock.json
+vendor
+artifacts/
+.phpunit.result.cache
