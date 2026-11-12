@@ -2,31 +2,40 @@
 name: Release
 
 on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g. 1.2.3)'
+        required: true
+        type: string
   push:
     tags:
-      - '*.*.*'          # e.g. 1.2.3 (use 'v*' if you tag as v1.2.3)
+      - '*.*.*'          # optional: keep tag-push releases too
 
 permissions:
-  contents: write        # needed to create the release
+  contents: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     env:
-      SLUG: ${{ github.event.repository.name }}   # or hard-code the plugin slug
-      VERSION: ${{ github.ref_name }}
+      SLUG: ${{ github.event.repository.name }}
+      VERSION: ${{ inputs.version || github.ref_name }}
     steps:
       - uses: actions/checkout@v4
 
-      # Optional: build assets first (e.g. @wordpress/scripts)
-      # - uses: actions/setup-node@v4
-      #   with: { node-version: 20 }
-      # - run: npm install && npm run build
+      - name: Validate version
+        run: |
+          [[ "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || { echo "Bad version: $VERSION"; exit 1; }
+          if git ls-remote --exit-code --tags origin "refs/tags/$VERSION" >/dev/null \
+             && [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Tag $VERSION already exists"; exit 1
+          fi
 
       - name: Check tag matches plugin version
         run: |
           HEADER=$(grep -m1 -i '^[ *]*Version:' "$SLUG.php" | awk '{print $NF}')
-          [ "$HEADER" = "$VERSION" ] || { echo "Tag $VERSION ≠ header $HEADER"; exit 1; }
+          [ "$HEADER" = "$VERSION" ] || { echo "Input $VERSION ≠ header $HEADER"; exit 1; }
 
       - name: Build distribution folder
         run: |
@@ -38,10 +47,11 @@ jobs:
           cd dist
           zip -r "$SLUG-$VERSION.zip" "$SLUG"
 
-      - name: Create GitHub release
+      - name: Create GitHub release (and tag)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "$VERSION" "dist/$SLUG-$VERSION.zip" \
+            --target "$GITHUB_SHA" \
             --title "$VERSION" \
             --generate-notes
