@@ -1,0 +1,47 @@
+# .github/workflows/release.yml
+name: Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'          # e.g. 1.2.3 (use 'v*' if you tag as v1.2.3)
+
+permissions:
+  contents: write        # needed to create the release
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      SLUG: ${{ github.event.repository.name }}   # or hard-code the plugin slug
+      VERSION: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Optional: build assets first (e.g. @wordpress/scripts)
+      # - uses: actions/setup-node@v4
+      #   with: { node-version: 20 }
+      # - run: npm install && npm run build
+
+      - name: Check tag matches plugin version
+        run: |
+          HEADER=$(grep -m1 -i '^[ *]*Version:' "$SLUG.php" | awk '{print $NF}')
+          [ "$HEADER" = "$VERSION" ] || { echo "Tag $VERSION ≠ header $HEADER"; exit 1; }
+
+      - name: Build distribution folder
+        run: |
+          mkdir -p "dist/$SLUG"
+          rsync -a --exclude-from=.distignore --exclude='.git' --exclude='dist' ./ "dist/$SLUG/"
+
+      - name: Create zip
+        run: |
+          cd dist
+          zip -r "$SLUG-$VERSION.zip" "$SLUG"
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$VERSION" "dist/$SLUG-$VERSION.zip" \
+            --title "$VERSION" \
+            --generate-notes
