@@ -514,8 +514,10 @@ class Plugin_Archive_Store {
 	 *
 	 * The zip is passed to Plugin_Upgrader::install() as a local package, so the
 	 * plugin is put back the way WordPress installs any plugin zip (and core's
-	 * install hooks run). Core puts a single-file plugin into a folder of its own,
-	 * so `hello.php` comes back as `hello/hello.php`.
+	 * install hooks run). A single-file plugin is put into a folder of its own,
+	 * so `hello.php` comes back as `hello/hello.php`: core would name that folder
+	 * after its working folder, which has a random suffix since WP 7.1.4, so
+	 * extract() wraps the file in `<slug>/` itself (see wrap_single_file()).
 	 *
 	 * Refuses if the plugins folder already holds that folder or file; never overwrites.
 	 *
@@ -551,11 +553,29 @@ class Plugin_Archive_Store {
 		$skin     = new Automatic_Upgrader_Skin();
 		$upgrader = new Plugin_Upgrader( $skin );
 
-		$level  = ob_get_level();
-		$result = $upgrader->install( $this->get_dir() . '/' . $plugins[ $plugin_file ]['zip'], array( 'clear_update_cache' => false ) );
-		// Automatic_Upgrader_Skin can leave its output buffer open when an install fails.
-		while ( ob_get_level() > $level ) {
-			ob_end_clean();
+		// A single-file plugin: put it in `<slug>/` before core picks the destination folder name.
+		$wrap = null;
+		if ( ! str_contains( $plugin_file, '/' ) ) {
+			$wrap = function ( $source, $remote_source, $current ) use ( $upgrader, $plugin_file, $slug ) {
+				if ( $current !== $upgrader ) {
+					return $source;
+				}
+				return $this->wrap_single_file( $source, $remote_source, $plugin_file, $slug );
+			};
+			add_filter( 'upgrader_source_selection', $wrap, 10, 3 );
+		}
+
+		$level = ob_get_level();
+		try {
+			$result = $upgrader->install( $this->get_dir() . '/' . $plugins[ $plugin_file ]['zip'], array( 'clear_update_cache' => false ) );
+		} finally {
+			if ( $wrap ) {
+				remove_filter( 'upgrader_source_selection', $wrap, 10 );
+			}
+			// Automatic_Upgrader_Skin can leave its output buffer open when an install fails.
+			while ( ob_get_level() > $level ) {
+				ob_end_clean();
+			}
 		}
 
 		$new_file = $upgrader->plugin_info();
