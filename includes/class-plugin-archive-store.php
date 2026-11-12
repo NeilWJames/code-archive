@@ -517,7 +517,8 @@ class Plugin_Archive_Store {
 	 * install hooks run). A single-file plugin is put into a folder of its own,
 	 * so `hello.php` comes back as `hello/hello.php`: core would name that folder
 	 * after its working folder, which has a random suffix since WP 7.1.4, so
-	 * extract() wraps the file in `<slug>/` itself (see wrap_single_file()).
+	 * extract() wraps the file in `<slug>/` itself with a temporary
+	 * `upgrader_source_selection` filter.
 	 *
 	 * Refuses if the plugins folder already holds that folder or file; never overwrites.
 	 *
@@ -557,10 +558,21 @@ class Plugin_Archive_Store {
 		$wrap = null;
 		if ( ! str_contains( $plugin_file, '/' ) ) {
 			$wrap = function ( $source, $remote_source, $current ) use ( $upgrader, $plugin_file, $slug ) {
-				if ( $current !== $upgrader ) {
+				global $wp_filesystem;
+				if ( $current !== $upgrader || is_wp_error( $source ) ) {
 					return $source;
 				}
-				return $this->wrap_single_file( $source, $remote_source, $plugin_file, $slug );
+				$from = trailingslashit( $source ) . $plugin_file;
+				if ( ! $wp_filesystem->is_file( $from ) ) {
+					return $source;
+				}
+				// Move the file into `<working folder>/<slug>/` and install from there.
+				$folder = trailingslashit( $remote_source ) . $slug;
+				if ( ( ! $wp_filesystem->is_dir( $folder ) && ! $wp_filesystem->mkdir( $folder, FS_CHMOD_DIR ) )
+					|| ! $wp_filesystem->move( $from, $folder . '/' . $plugin_file ) ) {
+					return new WP_Error( 'plugin_archive_unzip', __( 'The plugin could not be restored from the archive.', 'plugin-archive' ) );
+				}
+				return trailingslashit( $folder );
 			};
 			add_filter( 'upgrader_source_selection', $wrap, 10, 3 );
 		}
