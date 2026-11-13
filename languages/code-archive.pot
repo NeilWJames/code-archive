@@ -1,0 +1,274 @@
+# Copyright (C) 2026 Neil James
+# This file is distributed under the GPL v3.
+msgid ""
+msgstr ""
+"Project-Id-Version: Code Archive 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/code-archive\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-13T15:02:01+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: code-archive\n"
+
+#. Plugin Name of the plugin
+#: code-archive.php
+msgid "Code Archive"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: code-archive.php
+msgid "https://github.com/NeilWJames/code-archive"
+msgstr ""
+
+#. Description of the plugin
+#: code-archive.php
+msgid "Keeps inactive plugins out of the plugins folder by archiving them as zip files, and puts them back when they are needed. Archived plugins stay listed and can still be updated."
+msgstr ""
+
+#. Author of the plugin
+#: code-archive.php
+msgid "Neil James"
+msgstr ""
+
+#: includes/class-code-archive-store.php:106
+#: includes/class-code-archive-store.php:283
+msgid "The PHP zip extension is not available, so plugins cannot be archived."
+msgstr ""
+
+#: includes/class-code-archive-store.php:112
+msgid "WordPress cannot write directly to the wp-content folder, so plugins cannot be archived."
+msgstr ""
+
+#. translators: 1: Number of archived plugins, 2: Comma-separated plugin names.
+#: includes/class-code-archive-store.php:159
+#, php-format
+msgid "Code Archive cannot be deleted while %1$s plugin is archived (%2$s). Unarchive it first, then delete Code Archive."
+msgid_plural "Code Archive cannot be deleted while %1$s plugins are archived (%2$s). Unarchive them first, then delete Code Archive."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-code-archive-store.php:279
+msgid "The archive file name is not valid."
+msgstr ""
+
+#: includes/class-code-archive-store.php:287
+msgid "The archive file cannot be opened."
+msgstr ""
+
+#: includes/class-code-archive-store.php:313
+msgid "The archive holds files outside the plugin folder."
+msgstr ""
+
+#: includes/class-code-archive-store.php:341
+msgid "The archive does not hold a plugin."
+msgstr ""
+
+#. translators: %s: Archive file name.
+#: includes/class-code-archive-store.php:399
+#, php-format
+msgid "The archive already holds %s."
+msgstr ""
+
+#: includes/class-code-archive-store.php:416
+msgid "The archive file could not be saved."
+msgstr ""
+
+#. translators: %s: Plugin folder or file name.
+#: includes/class-code-archive-store.php:431
+#, php-format
+msgid "The plugin was archived, but %s could not be completely removed from the plugins folder. Remove it by hand."
+msgstr ""
+
+#: includes/class-code-archive-store.php:456
+msgid "The plugin is not installed."
+msgstr ""
+
+#: includes/class-code-archive-store.php:459
+msgid "Code Archive cannot archive itself."
+msgstr ""
+
+#: includes/class-code-archive-store.php:462
+msgid "Only inactive plugins can be archived. Deactivate it first."
+msgstr ""
+
+#: includes/class-code-archive-store.php:466
+msgid "The plugin is a symbolic link, so it is not archived."
+msgstr ""
+
+#: includes/class-code-archive-store.php:492
+msgid "The plugin contains a symbolic link, so it is not archived."
+msgstr ""
+
+#: includes/class-code-archive-store.php:506
+#: includes/class-code-archive-store.php:514
+msgid "The archive file could not be created."
+msgstr ""
+
+#: includes/class-code-archive-store.php:518
+msgid "The archive file could not be written."
+msgstr ""
+
+#: includes/class-code-archive-store.php:524
+msgid "The archive file could not be checked."
+msgstr ""
+
+#: includes/class-code-archive-store.php:530
+msgid "The archive file is incomplete."
+msgstr ""
+
+#: includes/class-code-archive-store.php:537
+msgid "The archive file does not hold the expected plugin."
+msgstr ""
+
+#: includes/class-code-archive-store.php:566
+msgid "The plugin is not in the archive."
+msgstr ""
+
+#. translators: %s: Plugin folder or file name.
+#: includes/class-code-archive-store.php:578
+#, php-format
+msgid "The plugins folder already holds %s, so the archived copy was not restored."
+msgstr ""
+
+#: includes/class-code-archive-store.php:603
+#: includes/class-code-archive-store.php:629
+msgid "The plugin could not be restored from the archive."
+msgstr ""
+
+#: includes/class-code-archive-store.php:710
+msgid "The filesystem could not be accessed."
+msgstr ""
+
+#: includes/class-code-archive-store.php:715
+msgid "The archive folder could not be created."
+msgstr ""
+
+#: includes/class-code-archive-updates.php:326
+msgid "There is no update available for this archived plugin."
+msgstr ""
+
+#. translators: %s: Plugin folder or file name.
+#: includes/class-code-archive-updates.php:338
+#, php-format
+msgid "The plugins folder already holds %s, so the update was not installed."
+msgstr ""
+
+#: includes/class-code-archive-updates.php:361
+msgid "The update failed; the archived copy is unchanged."
+msgstr ""
+
+#. translators: %s: Error message.
+#: includes/class-code-archive-updates.php:370
+#, php-format
+msgid "The plugin was updated but could not be archived again, so it has been left (inactive) in the plugins folder: %s"
+msgstr ""
+
+#: includes/class-code-archive.php:205
+msgctxt "plugins view"
+msgid "Archived"
+msgstr ""
+
+#. translators: %s: Plugin name.
+#: includes/class-code-archive.php:232
+#, php-format
+msgctxt "plugin"
+msgid "Unarchive %s"
+msgstr ""
+
+#: includes/class-code-archive.php:233
+#: includes/class-code-archive.php:353
+msgid "Unarchive"
+msgstr ""
+
+#. translators: %s: Plugin name.
+#: includes/class-code-archive.php:244
+#, php-format
+msgctxt "plugin"
+msgid "Archive %s"
+msgstr ""
+
+#: includes/class-code-archive.php:245
+#: includes/class-code-archive.php:358
+msgid "Archive"
+msgstr ""
+
+#: includes/class-code-archive.php:279
+msgctxt "plugin state"
+msgid "Archived"
+msgstr ""
+
+#. translators: 1: Plugin name, 2: Version number.
+#: includes/class-code-archive.php:321
+#, php-format
+msgid "There is a new version of %1$s available: %2$s."
+msgstr ""
+
+#: includes/class-code-archive.php:329
+msgid "Update now"
+msgstr ""
+
+#: includes/class-code-archive.php:330
+msgid "(the new version is installed and archived again)."
+msgstr ""
+
+#: includes/class-code-archive.php:383
+msgid "Sorry, you are not allowed to manage archived plugins."
+msgstr ""
+
+#. translators: %s: Number of plugins.
+#: includes/class-code-archive.php:410
+#, php-format
+msgid "%s plugin archived."
+msgid_plural "%s plugins archived."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: Number of plugins.
+#: includes/class-code-archive.php:412
+#, php-format
+msgid "%s plugin unarchived. It is in the plugins folder, inactive."
+msgid_plural "%s plugins unarchived. They are in the plugins folder, inactive."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-code-archive.php:426
+msgid "Sorry, you are not allowed to archive plugins."
+msgstr ""
+
+#. translators: %s: Plugin name.
+#: includes/class-code-archive.php:434
+#, php-format
+msgid "%s archived."
+msgstr ""
+
+#: includes/class-code-archive.php:447
+msgid "Sorry, you are not allowed to unarchive plugins."
+msgstr ""
+
+#. translators: %s: Plugin name.
+#: includes/class-code-archive.php:455
+#, php-format
+msgid "%s unarchived. It is in the plugins folder, inactive."
+msgstr ""
+
+#: includes/class-code-archive.php:468
+msgid "Sorry, you are not allowed to update plugins."
+msgstr ""
+
+#. translators: 1: Plugin name, 2: Version number.
+#: includes/class-code-archive.php:478
+#, php-format
+msgid "%1$s updated to version %2$s and archived again."
+msgstr ""
+
+#: includes/class-code-archive.php:513
+msgid "No plugin was given."
+msgstr ""
+
+#: uninstall.php:38
+msgid "Code Archive not deleted"
+msgstr ""
