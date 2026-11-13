@@ -152,7 +152,7 @@ class Code_Archive {
 
 		$search = isset( $s ) && is_string( $s ) ? urldecode( $s ) : '';
 		foreach ( $archived as $file => $entry ) {
-			$data                   = $entry['data'];
+			$data                 = $entry['data'];
 			$data['code_archive'] = true;
 			if ( $this->updates->get_update( $file ) ) {
 				$data['update'] = true;
