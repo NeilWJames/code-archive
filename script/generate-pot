@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# Regenerate the translation template with WP-CLI (PHP files only: Plugin Archive has no JS).
+# Regenerate the translation template with WP-CLI (PHP files only: Code Archive has no JS).
 # The version in the POT header comes from the plugin header (Version:).
 
 set -e
 
-wp i18n make-pot . languages/plugin-archive.pot \
-  --slug=plugin-archive \
-  --domain=plugin-archive \
+wp i18n make-pot . languages/code-archive.pot \
+  --slug=code-archive \
+  --domain=code-archive \
   --skip-js \
   --exclude=bin,docs,languages,node_modules,script,tests,vendor

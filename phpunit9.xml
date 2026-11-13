@@ -8,8 +8,8 @@
 	convertWarningsToExceptions="true"
 	>
 	<testsuites>
-		<testsuite name="Plugin Archive Tests">
-			<directory prefix="class-plugin-archive-test-" suffix=".php">./tests</directory>
+		<testsuite name="Code Archive Tests">
+			<directory prefix="class-code-archive-test-" suffix=".php">./tests</directory>
 		</testsuite>
 	</testsuites>
 	<logging>
@@ -23,7 +23,7 @@
 	          disableCodeCoverageIgnore="false">
 		<include>
 			<directory suffix=".php">./includes</directory>
-			<file>./plugin-archive.php</file>
+			<file>./code-archive.php</file>
 		</include>
 		<report>
 			<clover outputFile="coverage.xml" />

@@ -1,5 +1,5 @@
 {
-    "name": "neilwjames/plugin-archive",
+    "name": "neilwjames/code-archive",
     "description": "Keeps inactive WordPress plugins out of the plugins folder by archiving them as zip files.",
     "license": "GPL-3.0-or-later",
     "authors": [

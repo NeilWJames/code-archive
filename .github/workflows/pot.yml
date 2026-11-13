@@ -19,7 +19,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup PHP with WP-CLI
-        uses: shivammathur/setup-php@f3e473d116dcccaddc5834248c87452386958240 # v2.37.2
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2.40.0
         with:
           php-version: '8.4'
           tools: wp-cli
@@ -28,7 +28,7 @@ jobs:
         run: bash script/generate-pot
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        uses: peter-evans/create-pull-request@15733dbdfeedb4f7fdb73d13c6f5ac83b710fab8 # v8.1.2
         with:
             commit-message: "Update POT file"
             title: "Update POT file"

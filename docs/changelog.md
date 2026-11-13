@@ -10,5 +10,6 @@
 * NEW: Updates for archived plugins: checked at the same times as WordPress's own check (WordPress.org, and `update_plugins_{$hostname}` for other Update URI hosts), counted in the Updates totals, shown under the archived row, and applied by installing the new version and archiving it in place of the old zip. WordPress's own update data is not changed; archiving and unarchiving clear it so WordPress checks again.
 * NEW: Archive folder protected by `index.php` and `.htaccess`; nginx rule documented.
 * NEW: Multisite: managed in Network Admin.
-* DEV: Filters `plugin_archive_folder`, `plugin_archive_updates`; actions `plugin_archive_archived`, `plugin_archive_unarchived`.
+* NEW: Code Archive cannot be deleted while plugins are archived (`uninstall.php` refuses, so core keeps its files); the Plugins screen shows why. Unarchive them first.
+* DEV: Filters `code_archive_folder`, `code_archive_updates`; actions `code_archive_archived`, `code_archive_unarchived`.
 * DEV: PHPUnit tests (single site and multisite), phpcs, GitHub workflows (CI, Generate POT file).

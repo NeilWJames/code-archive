@@ -1,6 +1,6 @@
-# Plugin Archive
+# Code Archive
 
-[![CI](https://github.com/NeilWJames/plugin-archive/actions/workflows/ci.yml/badge.svg)](https://github.com/NeilWJames/plugin-archive/actions/workflows/ci.yml)
+[![CI](https://github.com/NeilWJames/code-archive/actions/workflows/ci.yml/badge.svg)](https://github.com/NeilWJames/code-archive/actions/workflows/ci.yml)
 
 A WordPress plugin that keeps inactive plugins out of the plugins folder by archiving them as zip files, puts them back when they are needed, and keeps them updated meanwhile.
 
@@ -8,11 +8,11 @@ A WordPress plugin that keeps inactive plugins out of the plugins folder by arch
 
 ## Why
 
-Every plugin in `wp-content/plugins` is code a web request can reach, active or not; Site Health recommends removing inactive plugins for that reason. Plugin Archive lets you keep the plugins you use now and then without leaving them there.
+Every plugin in `wp-content/plugins` is code a web request can reach, active or not; Site Health recommends removing inactive plugins for that reason. Code Archive lets you keep the plugins you use now and then without leaving them there.
 
 ## How it works
 
-Plugin Archive runs entirely on the web server, and does just two file operations:
+Code Archive runs entirely on the web server, and does just two file operations:
 
 - **Archive** = compress and move: the plugin's folder is compressed into a zip, moved into `wp-content/plugins-archive`, and removed from `wp-content/plugins`.
 - **Unarchive** = uncompress and move: the zip is uncompressed, the plugin moved back into `wp-content/plugins` (inactive), and the zip removed.

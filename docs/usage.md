@@ -1,8 +1,8 @@
-# Using Plugin Archive
+# Using Code Archive
 
 ## What it does
 
-Plugin Archive moves inactive plugins out of `wp-content/plugins` into an archive folder, `wp-content/plugins-archive`, as one zip file per plugin. It does just two things:
+Code Archive moves inactive plugins out of `wp-content/plugins` into an archive folder, `wp-content/plugins-archive`, as one zip file per plugin. It does just two things:
 
 - **Archive** = compress and move. The plugin's folder (or single file) is compressed into a zip in the archive folder, the zip is checked, and only then is the plugin removed from `wp-content/plugins`.
 - **Unarchive** = uncompress and move. The zip is uncompressed by WordPress's own plugin installer, the plugin moved back into `wp-content/plugins` (inactive), and only then is the zip removed.
@@ -21,7 +21,7 @@ An archived plugin is treated as installed and inactive; only where (and how) it
 
 - **Archived** view: just the archived plugins.
 - **All** (and search results): installed and archived plugins together. Archived rows are marked **Archived** and have no auto-update toggle.
-- Inactive plugins have an **Archive** action. Active plugins, Must-Use plugins, drop-ins, Plugin Archive itself and plugins that are symbolic links are not offered it.
+- Inactive plugins have an **Archive** action. Active plugins, Must-Use plugins, drop-ins, Code Archive itself and plugins that are symbolic links are not offered it.
 - An archived plugin's only action is **Unarchive**: it is put back in the plugins folder, inactive, by WordPress's own plugin installer (as if its zip had been uploaded on **Plugins → Add New**). Activate or delete it from there as usual. A single-file plugin (such as `hello.php`) comes back in a folder of its own (`hello/hello.php`), as WordPress's installer always does with a single file; it works the same, but settings WordPress keeps by the plugin's file name, such as whether it auto-updates, don't carry over.
 - Bulk actions **Archive** and **Unarchive**. In the Archived view, Unarchive is the only bulk action. WordPress's own bulk actions (Activate, Delete, ...) skip archived plugins.
 
@@ -32,11 +32,11 @@ On multisite all of this is in **Network Admin → Plugins**; sub-site Plugins s
 - A plugin is zipped to a temporary file, the zip is checked (it opens, holds every file, and its main file is the plugin), and only then is the plugin removed from the plugins folder.
 - Unarchive never overwrites: if the plugins folder already holds a folder (or file) of the same name, it stops and the zip is kept.
 - Zips copied into, or removed from, the archive folder by hand are picked up. A zip holding files outside its plugin folder, or no plugin, is ignored.
-- Plugin Archive never deletes a plugin.
+- Code Archive never deletes a plugin.
 
 ## Updates
 
-Plugin Archive checks the archived plugins at the same times WordPress checks installed ones: twice a day (WordPress's scheduled check), when the Plugins screen is opened and the last check is over 12 hours old, and when **Dashboard → Updates** is opened and the last check is over a minute old. Archiving a plugin, or a version change in the archive, makes the next of these check at once. WordPress's own update data is never changed.
+Code Archive checks the archived plugins at the same times WordPress checks installed ones: twice a day (WordPress's scheduled check), when the Plugins screen is opened and the last check is over 12 hours old, and when **Dashboard → Updates** is opened and the last check is over a minute old. Archiving a plugin, or a version change in the archive, makes the next of these check at once. WordPress's own update data is never changed.
 
 - plugins from WordPress.org are checked with WordPress.org's update service (`api.wordpress.org/plugins/update-check/1.1/`), sending the archived plugins' header details, the language of the admin screen and a user agent with the WordPress version and site address, as WordPress's own check does;
 - a plugin whose `Update URI` header names another host is passed to the same `update_plugins_{hostname}` filter WordPress uses, so an active updater plugin can answer for it;
@@ -74,8 +74,10 @@ Change the path if the folder name is changed.
 
 ### Changing the folder name
 
-Set the network option (site option on a single site) `plugin_archive_folder`, or use the `plugin_archive_folder` filter. The name is a single folder inside `wp-content`; anything else falls back to `plugins-archive`. Move existing zips to the new folder yourself.
+Set the network option (site option on a single site) `code_archive_folder`, or use the `code_archive_folder` filter. The name is a single folder inside `wp-content`; anything else falls back to `plugins-archive`. Move existing zips to the new folder yourself.
 
 ## Uninstalling
 
-Uninstalling Plugin Archive removes its cached data (`plugin_archive_plugins`, `plugin_archive_updates`). The archive folder, its zips and the `plugin_archive_folder` option are kept.
+Code Archive cannot be deleted while any plugins are archived, since nothing else would list them. `uninstall.php` refuses (on the Plugins screen as a "Deletion failed" message naming the archived plugins; elsewhere, including WP-CLI, as an error) and WordPress keeps Code Archive's files. Reactivate it, unarchive the plugins, then delete it.
+
+With the archive empty, uninstalling removes its cached data (`code_archive_plugins`, `code_archive_updates`). The archive folder and the `code_archive_folder` option are kept.

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<ruleset name="Plugin Archive">
+<ruleset name="Code Archive">
 
 	<extensions>php</extensions>
 
@@ -8,7 +8,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="plugin-archive"/>
+				<element value="code-archive"/>
 			</property>
 		</properties>
 	</rule>
@@ -16,7 +16,7 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="plugin_archive"/>
+				<element value="code_archive"/>
 			</property>
 		</properties>
 	</rule>
